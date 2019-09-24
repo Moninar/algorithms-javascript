@@ -12,26 +12,19 @@ function dfs(givenArr) {
 }
 
 function bfs(givenArr) {
-  let isFlatten = false;
   let arr = givenArr.slice(0);
   let ret = [];
-  while(!isFlatten) {
-    isFlatten = true;
-    for (let val of arr) {
-      if (Array.isArray(val)) {
-        ret.push(...val);
-        isFlatten = false;
-      } else {
-        ret.push(val);
-      }
+  while (arr.length > 0) {
+    if (Array.isArray(arr[0])) {
+      arr.push(...arr[0]);
+    } else {
+      ret.push(arr[0]);
     }
-    if (isFlatten) break;
-    arr = ret.slice(0);
-    ret = [];
+    arr.shift();
   }
   return ret;
 }
 
 
-// console.log(dfs([1, 2, [3, 4, [5, 6, 0], 4, [3, 7], 0]]));
-// console.log(bfs([1, 2, [3, 4, [5, 6, 0], 4, [3, 7], 0]]));
+// console.log(dfs([1, 2, [3, 4, [5, 6, 0], 4, [3, 7], 0]])); -> [1, 2, 3, 4, 5, 6, 0, 4, 3, 7, 0]
+// console.log(bfs([1, 2, [3, 4, [5, 6, 0], 4, [3, 7], 0]])); -> [1, 2, 3, 4, 4, 0, 5, 6, 0, 3, 7]
